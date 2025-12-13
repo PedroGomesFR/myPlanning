@@ -1,5 +1,12 @@
-./server/node_modules
-./client/node_modules
+server/node_modules
+client/node_modules
 .DS_Store
-./server/.env
-./client/.env
+server/.env
+client/.env
+
+# Build and cache artifacts
+client/.parcel-cache
+client/dist
+server/.env.local
+.vscode/
+.idea/
