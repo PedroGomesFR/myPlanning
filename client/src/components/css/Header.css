@@ -1,0 +1,41 @@
+header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.headerTitle h1 {
+  margin: 0;
+  font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.headerNav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.headerNav li {
+  margin-right: 1rem;
+}
+
+.headerNav a {
+  text-decoration: none;
+  color: black;
+}
+
+.headerNav a:hover {
+  text-decoration: underline;
+  color: var(--font-color);
+}
+
+.headerActions button {
+  border: none;
+  color: var(--font-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
