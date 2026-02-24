@@ -1,16 +1,17 @@
 import express from 'express';
 import connectDB from '../db/connection.js';
 import { ObjectId } from 'mongodb';
+import { verifyToken } from '../middleware/auth.js';
 
 const eventRouter = express.Router();
 
+// Require a valid JWT for all event routes and attach req.userId
+eventRouter.use(verifyToken);
+
 eventRouter.get('/userEvents', async (req, res) => {
   try {
-    const { userId } = req.query;
-    if (!userId) {
-      return res.status(400).json({ error: 'userId is required' });
-    }
-    
+    const userId = req.userId;
+
     const db = await connectDB();
     const events = await db.collection('events').find({ userId: userId }).toArray();
 
@@ -23,8 +24,9 @@ eventRouter.get('/userEvents', async (req, res) => {
 
 eventRouter.post('/addEvent', async (req, res) => {
   try {
-    const { userId, date, hour, name } = req.body;
-    if (!userId || !date || !hour || !name) {
+    const userId = req.userId;
+    const { date, hour, name } = req.body;
+    if (!date || !hour || !name) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -46,13 +48,14 @@ eventRouter.post('/addEvent', async (req, res) => {
 
 eventRouter.delete('/deleteEvent', async (req, res) => {
   try {
+    const userId = req.userId;
     const { id } = req.body;
     if (!id) {
       return res.status(400).json({ error: 'id is required' });
     }
 
     const db = await connectDB();
-    const result = await db.collection('events').deleteOne({ _id: new ObjectId(id) });
+    const result = await db.collection('events').deleteOne({ _id: new ObjectId(id), userId });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ error: 'Event not found' });

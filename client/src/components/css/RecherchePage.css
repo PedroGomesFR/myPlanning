@@ -1,0 +1,271 @@
+/* Recherche Page - Apple Design */
+.RecherchePage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Header & Search */
+.search-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+
+.search-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary, #1d1d1f);
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+}
+
+.search-bar {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  /* Reset flex */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  /* Apple-like soft shadow */
+  border-radius: 999px;
+  /* Pill shape */
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.search-bar input {
+  width: 100%;
+  height: 60px;
+  /* Large touch target */
+  padding: 0 160px 0 60px;
+  /* Space for icon left and button right */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  font-size: 1.1rem;
+  background: white;
+  appearance: none;
+  outline: none;
+}
+
+.search-bar .search-icon-marker {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary, #86868b);
+  font-size: 1.4rem;
+  pointer-events: none;
+}
+
+.search-bar .search-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  background: var(--primary, #1d1d1f);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0 24px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.search-bar .search-btn:hover {
+  background: var(--primary-hover, #000);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--bg-secondary, #f5f5f7);
+  color: var(--text-secondary, #1d1d1f);
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #e5e5e7;
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: var(--primary, #1d1d1f);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Results Grid */
+.results-section {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200, #e5e5ea);
+}
+
+.results-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary, #1d1d1f);
+}
+
+.results-count {
+  color: var(--text-secondary, #86868b);
+  font-weight: 500;
+}
+
+.professionals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Professional Card */
+.professional-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.professional-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  height: 220px;
+  background: var(--bg-secondary, #f5f5f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.profession-badge {
+  display: inline-block;
+  color: var(--primary, #0071e3);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary, #48484a);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-info {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.card-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Card Footer - Remove border, make clean */
+.card-footer {
+  margin-top: 10px;
+  padding-top: 0;
+  border: none;
+}
+
+/* Loading */
+.loading {
+  padding: 100px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-bar input {
+    padding-right: 20px;
+    /* Button moves below on mobile? No, let's auto-scale */
+  }
+
+  .professionals-grid {
+    grid-template-columns: 1fr;
+  }
+}

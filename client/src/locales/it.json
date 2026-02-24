@@ -1,0 +1,33 @@
+{
+    "translation": {
+        "welcome": "Benvenuto",
+        "home": "Home",
+        "find_pro": "Trova un Professionista",
+        "admin": "Admin",
+        "my_space": "Il Mio Spazio",
+        "login": "Accedi",
+        "logout": "Esci",
+        "search_placeholder": "Parrucchiere, Barbiere, Manicure...",
+        "hero_title": "Prenota il tuo appuntamento di bellezza",
+        "hero_subtitle": "Trova i migliori professionisti vicino a te.",
+        "search_btn": "Cerca",
+        "popular_services": "Servizi Popolari",
+        "footer_rights": "Tutti i diritti riservati.",
+        "legal_mentions": "Note Legali",
+        "cgp": "Condizioni Generali di Servizio",
+        "feature_search_title": "Cerca",
+        "feature_search_desc": "Trova i migliori saloni ed esperti vicino a te",
+        "feature_book_title": "Prenota",
+        "feature_book_desc": "Scegli il tuo orario ideale in pochi secondi",
+        "feature_enjoy_title": "Goditi",
+        "feature_enjoy_desc": "Vivi un'esperienza di bellezza unica e rilassante",
+        "featured_pros_title": "Professionisti in Evidenza",
+        "reviews_count": "recensioni",
+        "client_space": "AREA CLIENTI",
+        "my_bookings": "Le Mie Prenotazioni",
+        "explore_map": "Esplora Mappa",
+        "edit_photo": "Modifica Foto",
+        "photo_updated": "Foto del profilo aggiornata!",
+        "error_upload": "Errore durante il caricamento della foto."
+    }
+}

@@ -1,83 +1,34 @@
 import React from "react";
-import '../../components/css/LoginPage.css';
+import '../css/AppleDesign.css';
 import Input from "../common/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function LoginPage({ setUser }) {
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorMessages, setErrorMessages] = useState({ email: '', password: '' });
 
-  const [formData, setFormData] = useState({
-          email: '',
-          password: ''
-      });
-  
-      const handleChange = (e) => {
-          const { name, value } = e.target;
-          setFormData({
-              ...formData,
-              [name]: value
-          });
-        const errorMessage = validate(name, value);
-        setErrorMessages((prev) => ({ ...prev, [name]: errorMessage }));
-      };
-  
-  const [errorMessages, setErrorMessages] = useState({
-         email: '',
-         password: ''
-     });
-
-  const validate = (name, value) => { 
-    switch (name) {
-
-      case 'email':
-        if (!value) {
-          setErrorMessages((prev) => ({ ...prev, email: "Email est obligatoire." }));
-        } else {
-          setErrorMessages((prev) => ({ ...prev, email: "" }));
-        }
-        return "";
-
-      case 'password':
-        if (!value) {
-          setErrorMessages((prev) => ({ ...prev, password: "Password is required." }));
-        } else {
-          setErrorMessages((prev) => ({ ...prev, password: "" }));
-        }
-        return "";
-    
-      default:
-        return ""; 
-    }
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      alert("Please fill in all required fields.");
-      return;
-    }
     try {
       const response = await fetch("http://localhost:5001/api/records/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       if (!response.ok) {
-        let data;
-        try {
-          data = await response.json();
-        } catch (e) {
-          data = { message: `Error ${response.status}: ${response.statusText}` };
-        }
-        console.log("Login failed:", data);
-        alert("Login failed: " + data.message);
+        const data = await response.json();
+        alert(t('login_error') + " : " + data.message);
       } else {
         const successData = await response.json();
-        console.log("Login successful:", successData);
         localStorage.setItem("user", JSON.stringify(successData.user));
         localStorage.setItem("token", successData.token);
         setUser(successData.user);
@@ -85,21 +36,43 @@ function LoginPage({ setUser }) {
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred during login. Please try again later.");
+      alert(t('generic_error'));
     }
   };
 
   return (
-    <div className="login-container-wrapper">
-      <div className="login-container">
-        <h2>Login</h2>
+    <div style={{ background: '#F5F5F7', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="card" style={{ width: '100%', maxWidth: '400px', padding: '40px' }}>
+        <h2 className="text-center" style={{ marginBottom: '30px' }}>{t('login_title')}</h2>
         <form onSubmit={handleLogin}>
-          <Input label="Email" type="email" name="email" required={true} onChange={handleChange} errorMessage={errorMessages.email} value={formData.email} />
-          <Input label="Mot de passe" type="password" name="password" required={true} onChange={handleChange} errorMessage={errorMessages.password} value={formData.password} />
-          <button type="submit">Login</button>
+          <div className="form-group" style={{ marginBottom: '20px' }}>
+            <label className="form-label" style={{ display: 'block', marginBottom: '8px' }}>{t('email_label')}</label>
+            <input
+              className="form-input"
+              type="email"
+              name="email"
+              required
+              onChange={handleChange}
+              value={formData.email}
+              style={{ width: '100%' }}
+            />
+          </div>
+          <div className="form-group" style={{ marginBottom: '30px' }}>
+            <label className="form-label" style={{ display: 'block', marginBottom: '8px' }}>{t('password_label')}</label>
+            <input
+              className="form-input"
+              type="password"
+              name="password"
+              required
+              onChange={handleChange}
+              value={formData.password}
+              style={{ width: '100%' }}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>{t('login_btn')}</button>
         </form>
-        <div>
-          <p> Pas encore de compte? <Link to="/register">S'inscrire</Link></p>
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <p className="text-secondary"> {t('no_account')} <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>{t('register_link')}</Link></p>
         </div>
       </div>
     </div>

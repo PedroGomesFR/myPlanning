@@ -1,0 +1,3 @@
+[Diagnostic] Server is returning 200 OK for images.
+[Diagnostic] Browser fails to Render.
+[Action] Attempting manual static file serving from dist/.

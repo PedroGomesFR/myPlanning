@@ -41,4 +41,4 @@ async function closeDB() {
 }
 
 export default connectDB;
-export { closeDB };
+export { closeDB, uriLink as uri };

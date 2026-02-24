@@ -1,0 +1,33 @@
+{
+    "translation": {
+        "welcome": "Bem-vindo",
+        "home": "Início",
+        "find_pro": "Encontrar Profissional",
+        "admin": "Admin",
+        "my_space": "Meu Espaço",
+        "login": "Entrar",
+        "logout": "Sair",
+        "search_placeholder": "Cabeleireiro, Barbeiro, Manicure...",
+        "hero_title": "Agende seu horário de beleza",
+        "hero_subtitle": "Encontre os melhores profissionais perto de você.",
+        "search_btn": "Pesquisar",
+        "popular_services": "Serviços Populares",
+        "footer_rights": "Todos os direitos reservados.",
+        "legal_mentions": "Menções Legais",
+        "cgp": "Condições Gerais de Prestação",
+        "feature_search_title": "Pesquisar",
+        "feature_search_desc": "Encontre os melhores salões e especialistas perto de você",
+        "feature_book_title": "Agendar",
+        "feature_book_desc": "Escolha seu horário ideal em segundos",
+        "feature_enjoy_title": "Aproveitar",
+        "feature_enjoy_desc": "Viva uma experiência de beleza única e relaxante",
+        "featured_pros_title": "Profissionais em Destaque",
+        "reviews_count": "avaliações",
+        "client_space": "ÁREA DO CLIENTE",
+        "my_bookings": "Minhas Reservas",
+        "explore_map": "Explorar Mapa",
+        "edit_photo": "Editar Foto",
+        "photo_updated": "Foto de perfil atualizada!",
+        "error_upload": "Erro ao carregar a foto."
+    }
+}

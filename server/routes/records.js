@@ -1,7 +1,7 @@
 import express from 'express';
 import connectDB from '../db/connection.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { ObjectId } from 'mongodb';
 import { generateToken, verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 // Register route
 router.post('/register', async (req, res) => {
   try {
-    const {prenom, nom, dateDeNaissance, email, password, profession, companyName, siret ,type} = req.body;
+    const { prenom, nom, dateDeNaissance, email, password, profession, companyName, siret, type } = req.body;
 
     const db = await connectDB();
     const users = db.collection('users');
@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
         return res.status(400).json({ error: 'All fields are required' });
       }
       isClient = true;
-    }else if (type == 'professional') {
+    } else if (type == 'professional') {
       if (!prenom || !nom || !dateDeNaissance || !email || !password || !profession || !companyName || !siret) {
         return res.status(400).json({ error: 'All fields are required for professionals' });
       }
@@ -47,30 +47,54 @@ router.post('/register', async (req, res) => {
     }
 
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-      
-      const newUser = {
-        prenom,
-        nom,
-        dateDeNaissance,
-        email,
-        password: hashedPassword,
-        profession: profession || null,
-        companyName: companyName || null,
-        siret: siret || null,
-        isClient: isClient,
-        createdAt: new Date(),
-      };
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = {
+      prenom,
+      nom,
+      dateDeNaissance,
+      email,
+      password: hashedPassword,
+      profession: profession || null,
+      companyName: companyName || null,
+      siret: siret || null,
+      isClient: isClient,
+      profilePhoto: null,
+      salonPhotos: [],
+      description: null,
+      address: null,
+      phone: null,
+      openingHours: null,
+      location: null,
+      latitude: null,
+      longitude: null,
+      averageRating: 0,
+      totalReviews: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     const result = await users.insertOne(newUser);
 
     // Generate JWT
-    const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
+    const token = generateToken(result.insertedId);
 
-    res.status(201).json({user: { id: result.insertedId, prenom, nom, email }, token });
+    res.status(201).json({
+      user: {
+        id: result.insertedId,
+        prenom,
+        nom,
+        email,
+        isClient,
+        isAdmin: false, // Default to false
+        companyName,
+        profilePhoto: null
+      },
+      token
+    });
   } catch (error) {
     console.log(error);
-    
+
     res.status(500).json({ error: error.message });
   }
 
@@ -98,9 +122,110 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
-    
-    res.json({  user: { id: user._id, prenom: user.prenom, nom: user.nom, email: user.email }, token });
+    const token = generateToken(user._id);
+
+    res.json({
+      user: {
+        id: user._id,
+        prenom: user.prenom,
+        nom: user.nom,
+        email: user.email,
+        isClient: user.isClient,
+        isAdmin: user.isAdmin || false, // Return isAdmin status
+        companyName: user.companyName,
+        profilePhoto: user.profilePhoto,
+        salonPhotos: user.salonPhotos
+      },
+      token
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get all professionals
+router.get('/professionals', async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { search, profession } = req.query;
+
+    let query = { isClient: false };
+
+    if (search) {
+      query.$or = [
+        { companyName: { $regex: search, $options: 'i' } },
+        { profession: { $regex: search, $options: 'i' } },
+        { address: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    if (profession) {
+      query.profession = profession;
+    }
+
+    const professionals = await db.collection('users').find(
+      query,
+      { projection: { password: 0 } }
+    ).toArray();
+
+    res.status(200).json(professionals);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get professional profile details
+router.get('/professional/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = await connectDB();
+
+    const professional = await db.collection('users').findOne(
+      { _id: new ObjectId(id), isClient: false },
+      { projection: { password: 0 } }
+    );
+
+    if (!professional) {
+      return res.status(404).json({ error: 'Professional not found' });
+    }
+
+    res.status(200).json(professional);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update professional profile
+router.put('/update-profile', verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { description, address, phone, openingHours, companyName, latitude, longitude } = req.body;
+
+    const db = await connectDB();
+    const updateData = { updatedAt: new Date() };
+
+    if (description !== undefined) updateData.description = description;
+    if (address !== undefined) updateData.address = address;
+    if (phone !== undefined) updateData.phone = phone;
+    if (openingHours !== undefined) updateData.openingHours = openingHours;
+    if (companyName !== undefined) updateData.companyName = companyName;
+
+    // GPS coordinates
+    if (latitude !== undefined && longitude !== undefined) {
+      updateData.location = {
+        type: 'Point',
+        coordinates: [parseFloat(longitude), parseFloat(latitude)]
+      };
+      updateData.latitude = parseFloat(latitude);
+      updateData.longitude = parseFloat(longitude);
+    }
+
+    await db.collection('users').updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: updateData }
+    );
+
+    res.status(200).json({ message: 'Profile updated successfully', data: updateData });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

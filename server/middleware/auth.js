@@ -4,11 +4,11 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET || "mycontacts_jwt_secret";
 
-export const generateToken = (userId) => {
+const generateToken = (userId) => {
   return jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: "24h" });
 };
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
 
@@ -28,3 +28,6 @@ export const verifyToken = (req, res, next) => {
     return res.status(401).json({ error: "Token is invalid or expired" });
   }
 };
+
+export default verifyToken;
+export { generateToken, verifyToken };

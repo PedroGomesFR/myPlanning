@@ -1,0 +1,33 @@
+{
+    "translation": {
+        "welcome": "Willkommen",
+        "home": "Startseite",
+        "find_pro": "Profi finden",
+        "admin": "Admin",
+        "my_space": "Mein Bereich",
+        "login": "Anmelden",
+        "logout": "Abmelden",
+        "search_placeholder": "Friseur, Barbier, Maniküre...",
+        "hero_title": "Buchen Sie Ihren Schönheitstermin",
+        "hero_subtitle": "Finden Sie die besten Profis in Ihrer Nähe.",
+        "search_btn": "Suchen",
+        "popular_services": "Beliebte Dienstleistungen",
+        "footer_rights": "Alle Rechte vorbehalten.",
+        "legal_mentions": "Impressum",
+        "cgp": "Allgemeine Geschäftsbedingungen",
+        "feature_search_title": "Suchen",
+        "feature_search_desc": "Finden Sie die besten Salons und Experten in Ihrer Nähe",
+        "feature_book_title": "Buchen",
+        "feature_book_desc": "Wählen Sie Ihren idealen Termin in Sekunden",
+        "feature_enjoy_title": "Genießen",
+        "feature_enjoy_desc": "Erleben Sie ein einzigartiges und entspannendes Schönheitserlebnis",
+        "featured_pros_title": "Hervorgehobene Profis",
+        "reviews_count": "Bewertungen",
+        "client_space": "KUNDENBEREICH",
+        "my_bookings": "Meine Buchungen",
+        "explore_map": "Karte erkunden",
+        "edit_photo": "Foto bearbeiten",
+        "photo_updated": "Profilbild aktualisiert!",
+        "error_upload": "Fehler beim Hochladen des Fotos."
+    }
+}

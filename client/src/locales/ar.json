@@ -1,0 +1,33 @@
+{
+    "translation": {
+        "welcome": "أهلاً بك",
+        "home": "الرئيسية",
+        "find_pro": "ابحث عن محترف",
+        "admin": "مسؤول",
+        "my_space": "مساحتي",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج",
+        "search_placeholder": "حلاق، حلاقة، مانيكير...",
+        "hero_title": "احجز موعد تجميلك",
+        "hero_subtitle": "اعثر على أفضل المحترفين بالقرب منك.",
+        "search_btn": "بحث",
+        "popular_services": "الخدمات الشائعة",
+        "footer_rights": "جميع الحقوق محفوظة.",
+        "legal_mentions": "إشعارات قانونية",
+        "cgp": "الشروط العامة للخدمة",
+        "feature_search_title": "بحث",
+        "feature_search_desc": "اعثر على أفضل الصالونات والخبراء بالقرب منك",
+        "feature_book_title": "حجز",
+        "feature_book_desc": "اختر فترتك المثالية في ثوانٍ",
+        "feature_enjoy_title": "استمتع",
+        "feature_enjoy_desc": "عش تجربة تجميل فريدة ومريحة",
+        "featured_pros_title": "محترفون مميزون",
+        "reviews_count": "تقييمات",
+        "client_space": "منطقة العميل",
+        "my_bookings": "حجوزاتي",
+        "explore_map": "استكشاف الخريطة",
+        "edit_photo": "تعديل الصورة",
+        "photo_updated": "تم تحديث صورة الملف الشخصي!",
+        "error_upload": "خطأ في تحميل الصورة."
+    }
+}
